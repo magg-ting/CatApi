@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="283.0" prefWidth="223.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="com.example.catapi.MainController">
+<VBox alignment="CENTER" prefHeight="600" prefWidth="400" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catapi.MainController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -31,16 +31,16 @@
         </rowConstraints>
          <children>
             <Label text="Select breed:" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
+            <ComboBox fx:id="breedList" prefWidth="150.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <Button mnemonicParsing="false" style="-fx-background-color: #b3ffae;" text="Search">
+      <Button fx:id="searchBtn" mnemonicParsing="false" style="-fx-background-color: #b3ffae;" text="Search">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-      <Button mnemonicParsing="false" text="Learn More" visible="false">
+      <ImageView fx:id="resultImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="nextBtn" mnemonicParsing="false" onAction="#viewDetails" text="Learn More" visible="false">
          <font>
             <Font size="10.0" />
          </font>
