@@ -18,13 +18,6 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
-        try {
-            String response = CatApiUtil.fetchJsonData("https://api.thecatapi.com/v1/images/search", "breed_ids=aege");
-            CatApiUtil.parseImg(response);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
         launch();
     }
 }

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -25,18 +26,17 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox<Breed> breedList;
     @FXML
-    private Button searchBtn;
-    @FXML
     private Button nextBtn;
+    private static CatData cat;
+
 
     public String getSelectedBreedId(){
         Breed selectedBreed = breedList.getSelectionModel().getSelectedItem();
         if(selectedBreed != null && !selectedBreed.getBreedId().equals("ANY")){
-            System.out.println(selectedBreed.getBreedId());
+            System.out.println("Selected Breed ID: " + selectedBreed.getBreedId());
             return selectedBreed.getBreedId();
         }
         else{
-            System.out.println("null");
             return "";
         }
     }
@@ -50,9 +50,13 @@ public class MainController implements Initializable {
         }
         try{
             String response = CatApiUtil.fetchJsonData(base_url, params);
-            CatData cat = CatApiUtil.parseImg(response);
-            Image image = new Image(cat.getImgUrl());
+            CatData displayedCat = CatApiUtil.parseImg(response);
+            Image image = new Image(displayedCat.getImgUrl());
             resultImg.setImage(image);
+            nextBtn.setVisible(true);
+
+            cat = displayedCat;
+            System.out.println("Selected Image ID: " + cat.getImgId());
         }
         catch (Exception e){
             e.printStackTrace();
@@ -61,7 +65,13 @@ public class MainController implements Initializable {
 
     public void viewDetails(ActionEvent event) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("details-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 600);
+        Parent root = fxmlLoader.load();
+
+        DetailsController detailsController = fxmlLoader.getController();
+        detailsController.setCatData(cat);
+        detailsController.initializeUI();
+
+        Scene scene = new Scene(root, 400, 600);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setTitle("Breed Details");
         stage.setScene(scene);

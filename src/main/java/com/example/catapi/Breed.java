@@ -7,15 +7,17 @@ public class Breed {
     public String origin;
     public String weight;
     public String lifespan;
+    public String description;
     public String wikiUrl;
     public Breed(){};
-    public Breed(String breedId, String name, String temperament, String origin, String weight, String lifespan, String wikiUrl){
+    public Breed(String breedId, String name, String temperament, String origin, String weight, String lifespan, String description, String wikiUrl){
         this.breedId = breedId;
         this.name = name;
         this.temperament = temperament;
         this.origin = origin;
         this.weight = weight;
         this.lifespan = lifespan;
+        this.description = description;
         this.wikiUrl = wikiUrl;
     }
 
@@ -54,6 +56,12 @@ public class Breed {
     }
     public String getLifespan(){
         return lifespan;
+    }
+    public void setDescription(String description){
+        this.description = description;
+    }
+    public String getDescription(){
+        return description;
     }
     public void setWikiUrl(String wikiUrl){
         this.wikiUrl = wikiUrl;
