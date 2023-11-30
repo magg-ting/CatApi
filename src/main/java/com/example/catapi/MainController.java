@@ -43,10 +43,10 @@ public class MainController implements Initializable {
 
     public void search(){
         String base_url = "https://api.thecatapi.com/v1/images/search";
-        String params = "";
+        String params = "&has_breeds=1";    //limit the result to those cats with breed info
         String selectedBreedId = getSelectedBreedId();
         if(!selectedBreedId.isEmpty()){
-            params = "breed_ids=" + selectedBreedId;
+            params += "&breed_ids=" + selectedBreedId;
         }
         try{
             String response = CatApiUtil.fetchJsonData(base_url, params);

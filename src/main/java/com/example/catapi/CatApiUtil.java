@@ -15,7 +15,7 @@ public class CatApiUtil {
     public static String fetchJsonData(String base_url, String params) throws IOException{
 //      String base_url = "https://api.thecatapi.com/v1/images/search";
 //      String api_key = "live_rjnqQtVr2wc70tHNi1OwEWvTOQt5AViFL9Xi36XucrByRSRZCyMmJhZdDtnjOKY7";
-        URL full_url = new URL(base_url + "?" + params + "&api_key=" + api_key);
+        URL full_url = new URL(base_url + "?" + "api_key=" + api_key + params);
         System.out.println(full_url);
         HttpURLConnection conn = (HttpURLConnection) full_url.openConnection();
 
@@ -43,9 +43,10 @@ public class CatApiUtil {
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         String imgId = jsonObject.getString("id");
         String imgUrl = jsonObject.getString("url");
-        //String breedId =jsonObject.getJSONArray("breeds").getJSONObject(0).getString("id");
+        //String breedId = jsonObject.optJSONArray("breeds").getJSONObject(0).getString("id");
         Breed breed = new Breed();
         //breed.setBreedId(breedId);
+        //System.out.println(breedId);
         return new CatData(imgId, imgUrl, breed);
     }
 
