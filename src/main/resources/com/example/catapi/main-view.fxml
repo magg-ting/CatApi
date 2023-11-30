@@ -31,10 +31,10 @@
         </rowConstraints>
          <children>
             <Label text="Select breed:" />
-            <ComboBox fx:id="breedList" prefWidth="150.0" GridPane.columnIndex="1" />
+            <ComboBox fx:id="breedList" onAction="#getSelectedBreedId" prefWidth="150.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <Button fx:id="searchBtn" mnemonicParsing="false" style="-fx-background-color: #b3ffae;" text="Search">
+      <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#search" style="-fx-background-color: #b3ffae;" text="Search">
          <font>
             <Font size="10.0" />
          </font>

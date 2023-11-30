@@ -61,4 +61,10 @@ public class Breed {
     public String getWikiUrl(){
         return wikiUrl;
     }
+
+    // Override toString() method to return the breed's name in the ComboBox
+    @Override
+    public String toString() {
+        return name;
+    }
 }
