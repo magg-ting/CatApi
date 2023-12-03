@@ -2,25 +2,26 @@ package com.example.catapi;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController extends SceneController implements Initializable {
+    @FXML
+    private Label heading;
+    @FXML
+    private Label selectLabel;
+    @FXML
+    private Button searchBtn;
     @FXML
     private ImageView resultImg;
     @FXML
@@ -64,18 +65,7 @@ public class MainController implements Initializable {
     }
 
     public void viewDetails(ActionEvent event) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("details-view.fxml"));
-        Parent root = fxmlLoader.load();
-
-        DetailsController detailsController = fxmlLoader.getController();
-        detailsController.setCatData(cat);
-        detailsController.initializeUI();
-
-        Scene scene = new Scene(root, 400, 600);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setTitle("Breed Details");
-        stage.setScene(scene);
-        stage.show();
+        super.viewDetails(event, cat);
     }
 
     @Override
@@ -106,5 +96,10 @@ public class MainController implements Initializable {
             }
         });
 
+        //Add style classes to customize the UI
+        heading.getStyleClass().setAll("h1");
+        selectLabel.getStyleClass().setAll("label-lg");
+        searchBtn.getStyleClass().setAll("btn", "btn-success");
+        nextBtn.getStyleClass().setAll("btn", "btn-primary");
     }
 }
