@@ -1,6 +1,11 @@
+/**
+ * This class contains the details of a particular cat breed. JSON data fetched from the API will be parsed to create a Breed object where necessary.
+ * In the Cat API, each breed may contain more than one cat images, so searching a particular breed may give different result images every time.
+ */
 package com.example.catapi;
 
 public class Breed {
+    // The id and name of each breed are unique
     public String breedId;
     public String name;
     public String temperament;
@@ -9,6 +14,8 @@ public class Breed {
     public String lifespan;
     public String description;
     public String wikiUrl;
+
+    // Default Constructor and Parameterized Constructor
     public Breed(){};
     public Breed(String breedId, String name, String temperament, String origin, String weight, String lifespan, String description, String wikiUrl){
         this.breedId = breedId;
@@ -21,6 +28,7 @@ public class Breed {
         this.wikiUrl = wikiUrl;
     }
 
+    // Getters and Setters
     public void setBreedId(String breedId){
         this.breedId = breedId;
     }

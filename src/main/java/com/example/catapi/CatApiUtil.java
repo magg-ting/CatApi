@@ -1,3 +1,6 @@
+/**
+ * This class provides the utility code for connecting to The Cat API, fetching / parsing JSON data.
+ */
 package com.example.catapi;
 
 import org.json.JSONArray;
@@ -10,8 +13,17 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CatApiUtil {
+public abstract class CatApiUtil {
+    // API key to access The Cat API
     private final static String api_key = "live_rjnqQtVr2wc70tHNi1OwEWvTOQt5AViFL9Xi36XucrByRSRZCyMmJhZdDtnjOKY7";
+
+    /**
+     * This method is used to fetch data from different endpoints of The Cat API.
+     * @param base_url: the respective endpoint
+     * @param params: the parameters to be passed in the request
+     * @return String: JSON response
+     * @throws IOException
+     */
     public static String fetchJsonData(String base_url, String params) throws IOException{
         URL full_url = new URL(base_url + "?" + "api_key=" + api_key + params);
         System.out.println(full_url);
@@ -36,6 +48,11 @@ public class CatApiUtil {
         }
     }
 
+    /**
+     * This method is used to parse the JSON array returned from an image search.
+     * @param json: JSON response from an image search
+     * @return CatData: the id and url of the cat image, and an empty breed to be set using the parseBreedFromJson and the parseBreedFromImg method
+     */
     public static CatData parseImg(String json){
         JSONArray jsonArray = new JSONArray(json);
         JSONObject jsonObject = jsonArray.getJSONObject(0);
@@ -45,6 +62,10 @@ public class CatApiUtil {
         return new CatData(imgId, imgUrl, breed);
     }
 
+    /**
+     * This method is called when initializing the main-view to populate the combobox with all available breeds from the API.
+     * @return List<Breed>: a list collection of all available breed names
+     */
     public static List<Breed> parseAllBreeds(){
         List<Breed> allBreeds = new ArrayList<Breed>();
         String base_url = "https://api.thecatapi.com/v1/breeds";
@@ -66,22 +87,11 @@ public class CatApiUtil {
         return allBreeds;
     }
 
-    public static Breed parseBreedFromImg(String imgId){
-        String base_url = "https://api.thecatapi.com/v1/images/";
-        try{
-            System.out.println("Getting breed data from image id...");
-            String json = fetchJsonData(base_url + imgId, "");
-            JSONObject jsonObject = new JSONObject(json);
-            JSONObject breedObj = jsonObject.getJSONArray("breeds").getJSONObject(0);
-            return parseBreedFromJson(breedObj);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return new Breed();
-    }
-
+    /**
+     * This method parses a JSON object to fetch the breed details
+     * @param jsonObject: the JSON object returned from the parseBreedFromImg method
+     * @return Breed: the breed details of a particular cat image
+     */
     public static Breed parseBreedFromJson(JSONObject jsonObject){
         Breed breed = new Breed();
         try{
@@ -110,4 +120,29 @@ public class CatApiUtil {
 
         return breed;
     }
+
+    /**
+     * This method fetches the breed details of a particular cat image
+     * @param imgId: the id of the cat image
+     * @return Breed: the breed details of the cat
+     */
+    public static Breed parseBreedFromImg(String imgId){
+        String base_url = "https://api.thecatapi.com/v1/images/";
+        try{
+            System.out.println("Getting breed data from image id...");
+            String json = fetchJsonData(base_url + imgId, "");
+            JSONObject jsonObject = new JSONObject(json);
+            JSONObject breedObj = jsonObject.getJSONArray("breeds").getJSONObject(0);
+
+            // call the parseBreedFromJson method
+            return parseBreedFromJson(breedObj);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        // Return an empty breed if fail to fetch data
+        return new Breed();
+    }
+
 }

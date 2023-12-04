@@ -1,3 +1,6 @@
+/**
+ * This abstract class defines the methods for switching among different views.
+ */
 package com.example.catapi;
 
 import javafx.event.ActionEvent;
@@ -11,6 +14,11 @@ import org.kordamp.bootstrapfx.BootstrapFX;
 import java.io.IOException;
 
 public abstract class SceneController {
+    /**
+     * This method is called to redirect user to the main-view
+     * @param event: onclick event
+     * @throws IOException
+     */
     public void home(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 600);
@@ -26,6 +34,12 @@ public abstract class SceneController {
         stage.show();
     }
 
+    /**
+     * This method is called to redirect user to the details-view of a particular cat breed
+     * @param event: onclick event
+     * @param cat: CatData of the cat image shown
+     * @throws IOException
+     */
     public void viewDetails(ActionEvent event, CatData cat) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("details-view.fxml"));
         Parent root = fxmlLoader.load();
@@ -47,6 +61,13 @@ public abstract class SceneController {
         stage.show();
     }
 
+    /**
+     * This method is called to redirect user to the wiki-view of a particular cat breed
+     * @param event: onclick event
+     * @param cat: CatData of the cat image shown
+     * @param breedWikiUrl: the url of the wikipedia page of the breed
+     * @throws IOException
+     */
     public void openWiki(ActionEvent event, CatData cat, String breedWikiUrl) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("wiki-view.fxml"));
         Parent root = fxmlLoader.load();

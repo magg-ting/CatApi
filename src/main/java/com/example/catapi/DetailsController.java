@@ -1,3 +1,6 @@
+/**
+ * This is the controller class for the details-view.
+ */
 package com.example.catapi;
 
 import javafx.event.ActionEvent;
@@ -47,14 +50,28 @@ public class DetailsController extends SceneController{
     }
     private String breedWikiUrl;
 
+    /**
+     * This method is called when user clicks the Search Again button to return to the main-view
+     * @param event: onclick event
+     * @throws IOException
+     */
     public void home(ActionEvent event) throws IOException {
         super.home(event);
     }
 
+    /**
+     * This method is called when user clicks the wiki URL to view the wikipedia page of the particular breed
+     * @param event: onclick event
+     * @throws IOException
+     */
     public void openWiki(ActionEvent event) throws IOException {
         super.openWiki(event, cat, breedWikiUrl);
     }
 
+    /**
+     * This method is called to initialize the UI when the details-view is first loaded.
+     * We do not use the initialize() method from the Initializable interface directly to ensure that the CatData is passed to the DetailsController when we initialize the UI.
+     */
     public void initializeUI(){
         String imgId = cat.getImgId();
         String imgUrl = cat.getImgUrl();

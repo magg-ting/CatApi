@@ -1,3 +1,6 @@
+/**
+ * This is the controller class for the main-view.
+ */
 package com.example.catapi;
 
 import javafx.event.ActionEvent;
@@ -30,7 +33,10 @@ public class MainController extends SceneController implements Initializable {
     private Button nextBtn;
     private static CatData cat;
 
-
+    /**
+     * This method gets the id of the breed selected by the user
+     * @return String: the id of the selected breed name
+     */
     public String getSelectedBreedId(){
         Breed selectedBreed = breedList.getSelectionModel().getSelectedItem();
         if(selectedBreed != null && !selectedBreed.getBreedId().equals("ANY")){
@@ -42,20 +48,27 @@ public class MainController extends SceneController implements Initializable {
         }
     }
 
+    /**
+     * This method is called when user clicks the search button to initiate a call to the CAT API
+     */
     public void search(){
         String base_url = "https://api.thecatapi.com/v1/images/search";
         String params = "&has_breeds=1";    //limit the result to those cats with breed info
         String selectedBreedId = getSelectedBreedId();
+        // Note: if user has not selected any breed from the combobox, the API call will return a random cat image of any breeds by default
         if(!selectedBreedId.isEmpty()){
             params += "&breed_ids=" + selectedBreedId;
         }
+
         try{
             String response = CatApiUtil.fetchJsonData(base_url, params);
             CatData displayedCat = CatApiUtil.parseImg(response);
+            // Show the result cat image and a Learn More button
             Image image = new Image(displayedCat.getImgUrl());
             resultImg.setImage(image);
             nextBtn.setVisible(true);
 
+            // Assign the cat details of the image to the cat variable
             cat = displayedCat;
             System.out.println("Selected Image ID: " + cat.getImgId());
         }
@@ -64,10 +77,18 @@ public class MainController extends SceneController implements Initializable {
         }
     }
 
+    /**
+     * This method is called when user clicks the Learn More button to view details of the cat breed
+     * @param event: onclick event
+     * @throws IOException
+     */
     public void viewDetails(ActionEvent event) throws IOException{
         super.viewDetails(event, cat);
     }
 
+    /**
+     * This overrides the initialize method to populate the combobox and set style classes when the view is first loaded.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
         //Create a dummy Breed object to represent a wildcard search

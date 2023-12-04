@@ -1,3 +1,6 @@
+/**
+ * This is the main application class which contains the main method to launch the application.
+ */
 package com.example.catapi;
 
 import javafx.application.Application;
