@@ -15,7 +15,7 @@ import java.util.List;
 
 public abstract class CatApiUtil {
     // API key to access The Cat API
-    private final static String api_key = "live_rjnqQtVr2wc70tHNi1OwEWvTOQt5AViFL9Xi36XucrByRSRZCyMmJhZdDtnjOKY7";
+    private final static String api_key = "[YOUR_API_KEY]";
 
     /**
      * This method is used to fetch data from different endpoints of The Cat API.
